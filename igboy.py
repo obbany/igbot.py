@@ -27,7 +27,7 @@ def get_keyboard():
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data.clear() 
     await update.message.reply_text(
-        "नमस्ते! আপনার ডাটাগুলো নিচের ফরমেটে দিন:\n\n"
+        "হাই! আপনার ডাটাগুলো নিচের ফরমেটে দিন:\n\n"
         "First name: 민경\n"
         "Login: user123\n"
         "Password: pass123\n\n"
@@ -45,7 +45,7 @@ async def receive_data(update: Update, context: ContextTypes.DEFAULT_TYPE):
     passwords = re.findall(r"Password:\s*(\S+)", text)
 
     if not usernames or not passwords:
-        await update.message.reply_text("❌ ফরমেট মেলেনি! দয়া করে 'Login:' এবং 'Password:' কিউওয়ার্ড ব্যবহার করুন।")
+        await update.message.reply_text("❌ ফরমেট মেলেনি! দয়া করে 'Login:' এবং 'Password:' ব্যবহার করুন।")
         return GET_DATA
     
     context.user_data['list_usernames'] = usernames
@@ -75,7 +75,6 @@ async def process_accounts(update: Update, context: ContextTypes.DEFAULT_TYPE):
             two_f_code = totp.now()
             
             L = instaloader.Instaloader()
-            # Login Process
             try:
                 L.login(user, pwd)
             except instaloader.TwoFactorAuthRequiredException:
@@ -90,7 +89,7 @@ async def process_accounts(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception as e:
             await update.message.reply_text(f"❌ **Failed:** {user}\nError: {str(e)}")
         
-        time.sleep(3) # ব্যান প্রোটেকশন
+        time.sleep(3) 
 
     await update.message.reply_text("✅ টাস্ক কমপ্লিট!", reply_markup=get_keyboard())
     context.user_data.clear()
@@ -102,8 +101,10 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return ConversationHandler.END
 
 def main():
-    token = input(7152089923:AAHzwFQKwKj-KRCQ6EYAch_npetUr57pClM).strip()
-    app = Application.builder().token(token).build()
+    # সরাসরি আপনার টোকেনটি এখানে বসিয়ে দেওয়া হলো
+    TOKEN = "7152089923:AAHzwFQKwKj-KRCQ6EYAch_npetUr57pClM"
+    
+    app = Application.builder().token(TOKEN).build()
 
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start_command), MessageHandler(filters.Regex('^Start$'), start_command)],
@@ -115,7 +116,9 @@ def main():
     )
 
     app.add_handler(conv_handler)
+    print("বট চালু হচ্ছে...")
     app.run_polling()
 
 if __name__ == '__main__':
     main()
+    
