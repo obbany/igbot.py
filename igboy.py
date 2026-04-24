@@ -102,7 +102,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     # সরাসরি আপনার টোকেনটি এখানে বসিয়ে দেওয়া হলো
-    TOKEN = "7152089923:AAHzwFQKwKj-KRCQ6EYAch_npetUr57pClM"
+    TOKEN = "7152089923:AAHhdqxRJ66FgIaRpwQh67v3g-9GfAs_eRc"
     
     app = Application.builder().token(TOKEN).build()
 
